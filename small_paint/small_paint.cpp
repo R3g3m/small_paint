@@ -1,22 +1,19 @@
-// small_paint.cpp: определяет точку входа для приложения.
-//
-
 #include "stdafx.h"
 #include "small_paint.h"
 
 #define MAX_LOADSTRING 100
 
-// Глобальные переменные:
-HINSTANCE hInst;                                // текущий экземпляр
+HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
-WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
+WCHAR szWindowClass[MAX_LOADSTRING];            // name of MainWindow class
 
-// Отправить объявления функций, включенных в этот модуль кода:
+// Обьявления функций
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+//Main Function (entry point)
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -28,7 +25,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: разместите код здесь.
 
     // Инициализация глобальных строк
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_SMALL_PAINT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
@@ -42,7 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // Цикл основного сообщения:
+    // Main message cycle 
     while (GetMessage(&msg, nullptr, 0, 0))
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
@@ -55,12 +52,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
-
-
 //
-//  ФУНКЦИЯ: MyRegisterClass()
+//  FUNCTION: MyRegisterClass()
 //
-//  НАЗНАЧЕНИЕ: регистрирует класс окна.
+//  PURPOSE: регистрирует класс окна.
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
@@ -84,11 +79,11 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 }
 
 //
-//   ФУНКЦИЯ: InitInstance(HINSTANCE, int)
+//   FUNCTION: InitInstance(HINSTANCE, int)
 //
-//   НАЗНАЧЕНИЕ: сохраняет обработку экземпляра и создает главное окно.
+//   PURPOSE: сохраняет обработку экземпляра и создает главное окно.
 //
-//   КОММЕНТАРИИ:
+//   COMMENTS:
 //
 //        В данной функции дескриптор экземпляра сохраняется в глобальной переменной, а также
 //        создается и выводится на экран главное окно программы.
@@ -112,9 +107,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 }
 
 //
-//  ФУНКЦИЯ: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
-//  НАЗНАЧЕНИЕ:  обрабатывает сообщения в главном окне.
+//  PURPOSE:  обрабатывает сообщения в главном окне.
 //
 //  WM_COMMAND — обработать меню приложения
 //  WM_PAINT — отрисовать главное окно
