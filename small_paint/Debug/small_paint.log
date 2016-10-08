@@ -1,8 +1,7 @@
-﻿  Пропуск... (изменения не обнаружены)
-  stdafx.cpp
+﻿  stdafx.cpp
   small_paint.cpp
 d:\репозитории\small_paint\small_paint\small_paint.cpp(153): warning C4018: <: несоответствие типов со знаком и без знака
-  Создание кода...
-  Пропуск... (изменения не обнаружены)
   Figures.cpp
+  Создание кода...
+  LINK : не найден или не выполнена сборка D:\Репозитории\small_paint\Debug\small_paint.exe при последней инкрементной компоновке; выполняется полная компоновка
   small_paint.vcxproj -> D:\Репозитории\small_paint\Debug\small_paint.exe
