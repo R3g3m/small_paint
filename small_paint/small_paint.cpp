@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "small_paint.h"
-
+#include "Figures.cpp"
 #define MAX_LOADSTRING 100
 
 HINSTANCE hInst;                                // current instance
-WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
+WCHAR szTitle[MAX_LOADSTRING];                  // MainWindow Title
 WCHAR szWindowClass[MAX_LOADSTRING];            // name of MainWindow class
 
-// Обьявления функций
+std::vector<TFigure*> figures;
+
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -22,14 +23,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: разместите код здесь.
+    // добавляем фигуры в массив
+	figures.push_back(new TRectangle(10, 20, 100, 200));
+	figures.push_back(new TCircle(50, 50, 100));
+	figures.push_back(new TRectangle(30, 50, 300, 200));
+	figures.push_back(new TCircle(10, 10, 200));
+	figures.push_back(new TCircle(50, 100, 250));
 
-    // Инициализация глобальных строк
+    // Global string initialization
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_SMALL_PAINT, szWindowClass, MAX_LOADSTRING);
+
     MyRegisterClass(hInstance);
 
-    // Выполнить инициализацию приложения:
     if (!InitInstance (hInstance, nCmdShow))
     {
         return FALSE;
@@ -55,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 //  FUNCTION: MyRegisterClass()
 //
-//  PURPOSE: регистрирует класс окна.
+//  PURPOSE: Regisring main window class
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
@@ -90,7 +96,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance; // Сохранить дескриптор экземпляра в глобальной переменной
+
+   hInst = hInstance; // save handle in global value
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
@@ -123,7 +130,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
+            
+			//Выбор в меню
             switch (wmId)
             {
             case IDM_ABOUT:
@@ -141,7 +149,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
+            // Рисование фигур
+			for (int i = 0; i < figures.size(); i++)
+			{
+				//figures[i].Draw(hdc);
+			}
+				
             EndPaint(hWnd, &ps);
         }
         break;
@@ -154,7 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// Обработчик сообщений для окна "О программе".
+// Window About message handler
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
